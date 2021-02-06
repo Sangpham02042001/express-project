@@ -1,15 +1,16 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var router = express.Router();
-var Page = require('../models/page');
+var Category = require('../models/category');
 
 router.get('/', (req, res, next) => {
-    Page.find({}).sort({ sorting: 1 }).exec((err, pages) => {
-        if (err) return;
-        res.render('admin/pages', {
-            pages: pages
-        });
-    });
+    res.send("cate index");
+    // Page.find({}).sort({ sorting: 1 }).exec((err, pages) => {
+    //     if (err) return;
+    //     res.render('admin/pages', {
+    //         pages: pages
+    //     });
+    // });
 });
 
 router.get('/add-page', (req, res) => {

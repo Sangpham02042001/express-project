@@ -14,7 +14,7 @@ db.once('open', () => console.log('Connected to Mongoose'))
 
 var pages = require('./routes/pages');
 var adminPages = require('./routes/admin_pages');
-const { param } = require('./routes/pages');
+const adminCategories = require('./routes/admin_categories')
 
 var app = express();
 
@@ -58,6 +58,7 @@ app.use(function (req, res, next) {
 //Set route 
 app.use('/', pages);
 app.use('/admin/pages', adminPages);
+app.use('/admin/categories', adminCategories);
 
 var port = 3000;
 app.listen(port, () => {
