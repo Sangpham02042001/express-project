@@ -5,6 +5,7 @@ var config = require('./config/database');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var expressValidator = require('express-validator');
+var flash = require('req-flash');
 
 //Connect db
 mongoose.connect(config.database, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -25,13 +26,13 @@ app.locals.errors = null;
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
     cookie: { secure: true }
 }));
+app.use(flash());
 
 app.use(expressValidator({
     errorFormatter: function (param, msg, value) {
