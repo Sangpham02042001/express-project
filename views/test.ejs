@@ -1,0 +1,12 @@
+<%- include('./_layouts/adminheader') %> 
+
+<form action="/test" method="POST" enctype="multipart/form-data">
+    <input type="file" name="my_profile_pic" />
+    <input type="file" name="my_pet" />
+    <input type="file" name="my_cover_photo" />
+
+    <button type="submit">Submit</button>
+</form>
+
+
+<%- include('./_layouts/adminfooter') %> 
