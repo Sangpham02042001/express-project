@@ -1,0 +1,28 @@
+img.pimage {
+  width: 150px;
+}
+
+.productsItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+a.pa {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 160px;
+}
+
+img.spi {
+  width: 100%;
+}
+
+ul.gallery li {
+  display: inline-block;
+  margin: 20px;
+}

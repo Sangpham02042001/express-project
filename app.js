@@ -15,6 +15,7 @@ db.on('error', error => console.error(error))
 db.once('open', () => console.log('Connected to Mongoose'))
 
 var pages = require('./routes/pages');
+var products = require('./routes/products');
 var adminPages = require('./routes/admin_pages');
 var adminCategories = require('./routes/admin_categories');
 var adminProducts = require('./routes/admin_products');
@@ -25,12 +26,21 @@ app.set('view engine', 'ejs');
 app.locals.errors = null;
 
 var Page = require('./models/page');
+var Category = require('./models/category');
 
 Page.find({}).sort({ sorting: 1 }).exec((err, pages) => {
     if (err) {
         console.log(err);
     } else {
         app.locals.pages = pages;
+    }
+});
+
+Category.find({}, (err, categories) => {
+    if (err) {
+        console.log(err);
+    } else {
+        app.locals.categories = categories;
     }
 });
 
@@ -86,6 +96,7 @@ app.use(function (req, res, next) {
 });
 
 //Set route 
+app.use('/products', products);
 app.use('/', pages);
 app.use('/admin/pages', adminPages);
 app.use('/admin/categories', adminCategories);
