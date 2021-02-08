@@ -74,7 +74,6 @@ router.post('/add-page', (req, res) => {
 
 router.post('/reorder-pages', (req, res, next) => {
     var ids = req.body['id[]'];
-
     var count = 0;
     for (var i = 0; i < ids.length; i++) {
         var id = ids[i];

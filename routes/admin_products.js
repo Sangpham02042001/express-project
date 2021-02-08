@@ -209,20 +209,24 @@ router.post('/edit-product/:id', (req, res) => {
     if (req.files == null) {
         errors = req.validationErrors();
         Product.findById(id, (err, product) => {
-            Category.find({}, (err, categories) => {
-                res.render('admin/edit_product', {
-                    errors: errors,
-                    title: title,
-                    desc: desc,
-                    category: category,
-                    price: price,
-                    image: product.image,
-                    categories: categories,
-                    id: id,
-                    galleryImages: galleryImages
+            if (err) {
+                console.log(err);
+            } else {
+                product.title = title;
+                product.slug = slug;
+                product.desc = desc;
+                product.price = price;
+                product.category = category;
+
+                product.save((err) => {
+                    if (err) {
+                        console.log(err);
+                    }
                 });
-            });
-        })
+
+                res.redirect('/admin/products');
+            }
+        });
         return;
     }
 
@@ -327,6 +331,26 @@ router.get('/delete-product/:id', (req, res, next) => {
                 } else {
                     req.flash('success', "Product Deleted");
                     res.redirect('/admin/products');
+                }
+            });
+        }
+    })
+});
+
+router.get('/delete-image/:image', (req, res, next) => {
+    var originalImage = 'public/product_images/' + req.query.id + '/gallery/' + req.params.image;
+    var thumbImage = 'public/product_images/' + req.query.id + '/gallery/thumbs/' + req.params.image;
+
+    fs.remove(originalImage, (err) => {
+        if (err) {
+            console.log(err);
+        } else {
+            fs.remove(thumbImage, (err) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    req.flash('success', "Image Deleted");
+                    res.redirect('/admin/products/edit-product/' + req.query.id);
                 }
             });
         }

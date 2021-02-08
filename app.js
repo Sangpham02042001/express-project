@@ -18,13 +18,21 @@ var pages = require('./routes/pages');
 var adminPages = require('./routes/admin_pages');
 var adminCategories = require('./routes/admin_categories');
 var adminProducts = require('./routes/admin_products');
-var test = require('./routes/test');
-
 var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.locals.errors = null;
+
+var Page = require('./models/page');
+
+Page.find({}).sort({ sorting: 1 }).exec((err, pages) => {
+    if (err) {
+        console.log(err);
+    } else {
+        app.locals.pages = pages;
+    }
+});
 
 app.use(fileUpload());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -82,19 +90,6 @@ app.use('/', pages);
 app.use('/admin/pages', adminPages);
 app.use('/admin/categories', adminCategories);
 app.use('/admin/products', adminProducts);
-// app.use('/test', test)
-
-app.get('/test', (req, res, next) => {
-    res.render('test');
-});
-
-app.post('/test', (req, res, next) => {
-    if (req.files == null) {
-        res.end("fadfas");
-    } else {
-        res.end("fadfasfdsafasd");
-    }
-})
 
 var port = 3000;
 app.listen(port, () => {
