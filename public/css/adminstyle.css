@@ -28,3 +28,7 @@ ul.gallery li {
   margin: 20px;
   display: block;
 }
+
+table.alignmiddle td {
+  vertical-align: middle !important;
+}

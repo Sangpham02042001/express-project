@@ -1,16 +1,20 @@
 <%- include('_layouts/header') %> 
 
 <div class="row products">
-    <% products.forEach((pro) => { %> 
-        <div class="col-xs-12 col-md-4 productsItem">
-            <a href="/products/<%= pro.category %>/<%= pro.slug %>" class="pa">
-                <img src="/product_images/<%= pro.id %>/<%= pro.image %>" alt="" class="pimage">
-            </a>
-            <h3><%= pro.title %></h3>
-            <h4>$<%= parseFloat(pro.price).toFixed(2) %></h4>
-            <a class="vd" href="/products/<%= pro.category %>/<%= pro.slug %>">View Details</a>
-        </div> 
-    <% }); %> 
+    <% if (products.length == 0) { %> 
+        <h3>No product in this category</h3>
+    <% } else { %> 
+        <% products.forEach((pro) => { %> 
+            <div class="col-xs-12 col-md-4 productsItem">
+                <a href="/products/<%= pro.category %>/<%= pro.slug %>" class="pa">
+                    <img src="/product_images/<%= pro.id %>/<%= pro.image %>" alt="" class="pimage">
+                </a>
+                <h3><%= pro.title %></h3>
+                <h4>$<%= parseFloat(pro.price).toFixed(2) %></h4>
+                <a class="vd" href="/products/<%= pro.category %>/<%= pro.slug %>">View Details</a>
+            </div> 
+        <% }); %>
+    <% } %> 
 </div>
 
 <%- include('_layouts/footer') %> 

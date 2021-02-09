@@ -16,6 +16,7 @@ db.once('open', () => console.log('Connected to Mongoose'))
 
 var pages = require('./routes/pages');
 var products = require('./routes/products');
+var cart = require('./routes/cart');
 var adminPages = require('./routes/admin_pages');
 var adminCategories = require('./routes/admin_categories');
 var adminProducts = require('./routes/admin_products');
@@ -95,9 +96,12 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.locals.cart = null;
+
 //Set route 
 app.use('/products', products);
 app.use('/', pages);
+app.use('/cart', cart);
 app.use('/admin/pages', adminPages);
 app.use('/admin/categories', adminCategories);
 app.use('/admin/products', adminProducts);

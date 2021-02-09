@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
     <title><%= title %> </title>
   </head>
 
@@ -33,6 +35,18 @@
                 <li><a href="<%= page.slug %> "><%= page.title %> </a></li>
               <% } %> 
             <% }) %> 
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a href="/cart/checkout">My Cart 
+                <i class="fas fa-shopping-cart"></i> (
+                <% if (cart !== null) { %> 
+                  <%= cart.length %> 
+                  <% } else { %>
+                    0
+                <% } %>   
+              )</a>
+            </li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
