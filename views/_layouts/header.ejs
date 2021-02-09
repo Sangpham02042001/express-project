@@ -47,6 +47,21 @@
                 <% } %>   
               )</a>
             </li>
+            <% if (users) { %> 
+              <li>
+                <a href="/users/logout"><i class="fas fa-user-plus"></i>Hi, <%= user.username %>Logout</a>
+              </li>
+            <% } else { %>
+              <li>
+                <a href="/users/register"><i class="fas fa-user-plus"></i> Register</a>
+              </li>
+              <li>
+                <a href="/users/login"><i class="fas fa-sign-out-alt"></i> Login</a>
+              </li>
+              <li>
+                <a href="/admin/login">Admin</a>
+              </li>  
+            <% } %> 
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -54,6 +69,15 @@
 
     <div class="container">
       <%- messages('messages', locals) %>
+
+      <% if (errors) { %> 
+        <% errors.forEach((error) => { %>
+          <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <%= error.msg %> 
+          </div>
+        <% }) %>
+      <% } %>  
 
       <div class="row">
         <div class="col-xs-12 col-md-3">

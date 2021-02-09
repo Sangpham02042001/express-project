@@ -7,6 +7,7 @@ var session = require('express-session');
 var expressValidator = require('express-validator');
 var flash = require('req-flash');
 var fileUpload = require('express-fileupload');
+var passport = require('passport');
 
 //Connect db
 mongoose.connect(config.database, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -17,6 +18,8 @@ db.once('open', () => console.log('Connected to Mongoose'))
 var pages = require('./routes/pages');
 var products = require('./routes/products');
 var cart = require('./routes/cart');
+var users = require('./routes/users');
+var admin = require('./routes/admin');
 var adminPages = require('./routes/admin_pages');
 var adminCategories = require('./routes/admin_categories');
 var adminProducts = require('./routes/admin_products');
@@ -96,12 +99,23 @@ app.use(function (req, res, next) {
     next();
 });
 
+require('./config/passport')(passport);
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.locals.cart = null;
+
+app.get('*', (req, res, next) => {
+    app.locals.users = req.user || null;
+    next();
+})
 
 //Set route 
 app.use('/products', products);
 app.use('/', pages);
 app.use('/cart', cart);
+app.use('/users', users);
+app.use('/admin', admin);
 app.use('/admin/pages', adminPages);
 app.use('/admin/categories', adminCategories);
 app.use('/admin/products', adminProducts);
